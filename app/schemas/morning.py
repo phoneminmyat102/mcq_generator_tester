@@ -14,6 +14,7 @@ class AnswerEnum(str, Enum):
     option_d = "d"
 
 class MorningResponseModel(BaseModel):
+    id: int
     text: str
     option_a: str
     option_b: str
@@ -34,10 +35,10 @@ class MorningCreateModel(BaseModel):
     answer: AnswerEnum
 
 class MorningUpdateModel(BaseModel):
-    text: Optional[str]
-    option_a: Optional[str]
-    option_b: Optional[str]
-    option_c: Optional[str]
-    option_d: Optional[str]
-    type: Optional[QuestionTypeEnum]
-    answer: Optional[AnswerEnum]
+    text: Optional[str] = None
+    option_a: Optional[str] = None
+    option_b: Optional[str] = None
+    option_c: Optional[str] = None
+    option_d: Optional[str] = None
+    type: Optional[QuestionTypeEnum] = None
+    answer: Optional[AnswerEnum] = None

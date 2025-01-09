@@ -35,3 +35,18 @@ async def list_morning_questions(db: AsyncSession = Depends(get_db)):
     questions = await repo.get_all()
     return questions
 
+@router.post('/morning/{question_id}/update', response_model=MorningResponseModel)
+async def update_morning_question(question_id: int, morning: MorningUpdateModel, db: AsyncSession = Depends(get_db)):
+    repo = MorningRepository(db)
+    updated_question = await repo.update(question_id, **morning.model_dump(exclude_unset=True))
+    if not updated_question:
+        raise HTTPException(status_code=404, detail="Question Not Found!")
+    return updated_question
+
+@router.delete('/morning/{question_id}/delete')
+async def delete_morning_question(question_id: int, db: AsyncSession = Depends(get_db)):
+    repo = MorningRepository(db)
+    result = await repo.delete(question_id)
+    if not result:
+        raise HTTPException(status_code=404, detail="Question Not Found!")
+    return {"message": "Question deleted successfully"}
