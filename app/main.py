@@ -4,7 +4,7 @@ from models.user import User
 from models.morning import Morning
 from models.afternoon import Afternoon
 from models.exam_history import ExamHistory
-from routers import morning_router
+from routers import morning_router, user_router
 
 app = FastAPI()
 async def startup_tasks():
@@ -12,6 +12,7 @@ async def startup_tasks():
 
 
 app.include_router(morning_router.router, prefix='/api/v1', tags=["Morning Questions"])
+app.include_router(user_router.router, prefix='/api/v1', tags=["Users"])
 
 @app.get('/')
 def home():
